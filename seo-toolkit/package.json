@@ -1,7 +1,7 @@
 {
-  "name": "seo-toolkit",
+  "name": "astro-seo-toolkit",
   "version": "0.1.0",
-  "description": "Dependency-free SEO helpers: llms.txt generator, JSON-LD builders, IndexNow submitter.",
+  "description": "Zero-dependency SEO toolkit for Astro & static sites: llms.txt, JSON-LD, IndexNow, sitemap.xml, robots.txt.",
   "type": "module",
   "license": "MIT",
   "scripts": {

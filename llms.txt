@@ -1,10 +1,10 @@
-# RelayStack Lab
+# Astro SEO Toolkit
 
-> Dependency-free SEO helpers for Astro and static sites: llms.txt generator, JSON-LD schema builders, IndexNow submitter, sitemap and robots.txt generators. Zero installs.
+> Zero-dependency SEO helpers for Astro and static sites: llms.txt generator, JSON-LD schema builders, IndexNow submitter, sitemap and robots.txt generators. Tested, no installs, Node 18+.
 
 ## Docs
 
-- [README](https://github.com/RelayStack/lab#readme): overview and quick start
-- [SEO toolkit](https://github.com/RelayStack/lab/tree/main/seo-toolkit): all helpers with usage
-- [GEO checklist](https://github.com/RelayStack/lab/blob/main/notes/geo-checklist.md): 2026 AI-search checklist for Swiss business sites
-- [Cloudflare Worker example](https://github.com/RelayStack/lab/blob/main/examples/cloudflare-worker-hello.js): minimal JSON + health-check worker
+- [README](https://github.com/RelayStack/astro-seo-toolkit#readme): overview, quick start, Astro wiring
+- [Tool reference](https://github.com/RelayStack/astro-seo-toolkit/tree/main/seo-toolkit): flags and API for every helper
+- [GEO checklist](https://github.com/RelayStack/astro-seo-toolkit/blob/main/notes/geo-checklist.md): 2026 AI-search checklist for Swiss business sites
+- [Cloudflare Worker example](https://github.com/RelayStack/astro-seo-toolkit/blob/main/examples/cloudflare-worker-hello.js): minimal JSON + health-check worker
