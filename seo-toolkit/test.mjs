@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import { parseFrontmatter, stripMarkdown, renderLlmsTxt } from "./llms-txt.mjs";
 import { localBusiness, service, faqPage, toScript } from "./json-ld.mjs";
 import { buildPayload } from "./indexnow.mjs";
+import { renderSitemap } from "./sitemap.mjs";
+import { renderRobots } from "./robots.mjs";
 
 test("frontmatter parses title and description", () => {
   const fm = parseFrontmatter('---\ntitle: Hallo\ndescription: "Welt"\n---\n# Body');
@@ -55,4 +57,23 @@ test("indexnow payload targets official endpoint", () => {
   const p = buildPayload({ host: "example.com", key: "k", urls: ["https://example.com/a"] });
   assert.equal(p.endpoint, "https://api.indexnow.org/indexnow");
   assert.deepEqual(p.body.urlList, ["https://example.com/a"]);
+});
+
+test("sitemap renders urlset", () => {
+  const xml = renderSitemap([{ url: "https://example.com/a" }]);
+  assert.ok(xml.includes("<urlset"));
+  assert.ok(xml.includes("<loc>https://example.com/a</loc>"));
+});
+
+test("robots references sitemap and allows all by default", () => {
+  const txt = renderRobots({ sitemap: "https://example.com/sitemap.xml" });
+  assert.ok(txt.includes("Allow: /"));
+  assert.ok(txt.includes("Sitemap: https://example.com/sitemap.xml"));
+  assert.ok(!txt.includes("GPTBot"));
+});
+
+test("robots can disallow AI crawlers", () => {
+  const txt = renderRobots({ sitemap: "https://example.com/sitemap.xml", disallowAI: true });
+  assert.ok(txt.includes("User-agent: GPTBot"));
+  assert.ok(txt.includes("Disallow: /"));
 });
