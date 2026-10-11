@@ -1,0 +1,28 @@
+---
+import { localBusiness, service, toScript } from "../../seo/json-ld.mjs";
+
+export interface Props {
+  title: string;
+  description: string;
+  service?: Parameters<typeof service>[0];
+}
+
+const { title, description } = Astro.props;
+const org = toScript(localBusiness({ name: "Example Co.", url: String(Astro.site) }));
+const pageSchema = Astro.props.service ? toScript(service(Astro.props.service)) : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={Astro.url.href} />
+    <Fragment set:html={org} />
+    {pageSchema && <Fragment set:html={pageSchema} />}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
