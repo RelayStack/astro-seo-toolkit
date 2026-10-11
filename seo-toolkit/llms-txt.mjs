@@ -3,6 +3,7 @@ import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 
 export function parseFrontmatter(text) {
+  text = text.replace(/\r\n/g, "\n");
   const match = text.match(/^---\n([\s\S]*?)\n---/);
   const data = {};
   if (!match) return data;
@@ -15,6 +16,7 @@ export function parseFrontmatter(text) {
 
 export function stripMarkdown(text) {
   return text
+    .replace(/\r\n/g, "\n")
     .replace(/^---\n[\s\S]*?\n---/, "")
     .replace(/```[\s\S]*?```/g, "")
     .replace(/[#>*_`[\]()!|-]/g, "")
@@ -26,6 +28,7 @@ export async function collectPages(dir, site) {
   const pages = [];
   async function walk(current) {
     for (const entry of await readdir(current, { withFileTypes: true })) {
+      if (entry.name.startsWith(".") || entry.name === "node_modules") continue;
       const full = join(current, entry.name);
       if (entry.isDirectory()) {
         await walk(full);

@@ -4,7 +4,7 @@ import { join, dirname } from "node:path";
 import { parseFrontmatter } from "./llms-txt.mjs";
 
 export function stripFrontmatter(text) {
-  return text.replace(/^---\n[\s\S]*?\n---/, "").trim() + "\n";
+  return text.replace(/\r\n/g, "\n").replace(/^---\n[\s\S]*?\n---/, "").trim() + "\n";
 }
 
 export async function collectFull(dir, site, limit = 200) {
@@ -13,7 +13,7 @@ export async function collectFull(dir, site, limit = 200) {
     if (pages.length >= limit) return;
     for (const entry of await readdir(current, { withFileTypes: true })) {
       if (pages.length >= limit) break;
-      if (entry.name.startsWith(".")) continue;
+      if (entry.name.startsWith(".") || entry.name === "node_modules") continue;
       const full = join(current, entry.name);
       if (entry.isDirectory()) {
         await walk(full);
