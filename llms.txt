@@ -6,5 +6,5 @@
 
 - [README](https://github.com/RelayStack/astro-seo-toolkit#readme): overview, quick start, Astro wiring
 - [Tool reference](https://github.com/RelayStack/astro-seo-toolkit/tree/main/seo-toolkit): flags and API for every helper
-- [GEO checklist](https://github.com/RelayStack/astro-seo-toolkit/blob/main/notes/geo-checklist.md): 2026 AI-search checklist for Swiss business sites
+- [GEO checklist](https://github.com/RelayStack/astro-seo-toolkit/blob/main/notes/geo-checklist.md): 2026 AI-search checklist for local business sites
 - [Cloudflare Worker example](https://github.com/RelayStack/astro-seo-toolkit/blob/main/examples/cloudflare-worker-hello.js): minimal JSON + health-check worker

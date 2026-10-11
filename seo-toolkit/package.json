@@ -4,6 +4,7 @@
   "description": "Zero-dependency SEO toolkit for Astro & static sites: llms.txt, JSON-LD, IndexNow, sitemap.xml, robots.txt.",
   "type": "module",
   "license": "MIT",
+  "keywords": ["seo", "astro", "json-ld", "llms-txt", "indexnow", "sitemap", "geo"],
   "scripts": {
     "test": "node --test test.mjs"
   }

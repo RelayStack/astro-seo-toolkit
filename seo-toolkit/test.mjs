@@ -32,16 +32,27 @@ test("llms.txt renders link list", () => {
   assert.ok(txt.includes("- [A](https://example.com/a): d"));
 });
 
-test("localBusiness schema keeps Swiss defaults", () => {
-  const s = localBusiness({ name: "N", url: "https://example.com", address: { city: "Basel", zip: "4000" } });
+test("localBusiness passes explicit country through", () => {
+  const s = localBusiness({ name: "N", url: "https://example.com", address: { city: "Austin", zip: "78701", country: "US" } });
   assert.equal(s["@type"], "LocalBusiness");
-  assert.equal(s.address.addressCountry, "CH");
+  assert.equal(s.address.addressCountry, "US");
 });
 
-test("service offer uses ab CHF note", () => {
+test("localBusiness omits country when not given", () => {
+  const s = localBusiness({ name: "N", url: "https://example.com", address: { city: "Austin" } });
+  assert.ok(!("addressCountry" in s.address));
+});
+
+test("service offer uses explicit currency and note", () => {
+  const s = service({ name: "S", url: "https://example.com/s", price: { from: "120", currency: "USD", note: "From $120" } });
+  assert.equal(s.offers.priceCurrency, "USD");
+  assert.equal(s.offers.description, "From $120");
+});
+
+test("service offer falls back to plain currency note", () => {
   const s = service({ name: "S", url: "https://example.com/s", price: { from: "120" } });
-  assert.equal(s.offers.priceCurrency, "CHF");
-  assert.equal(s.offers.description, "ab CHF 120");
+  assert.equal(s.offers.priceCurrency, "USD");
+  assert.equal(s.offers.description, "USD 120");
 });
 
 test("faqPage wraps pairs", () => {
