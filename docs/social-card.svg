@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <rect width="1280" height="640" fill="#0d1117"/>
+  <rect x="64" y="64" width="1152" height="512" rx="24" fill="none" stroke="#2ea043" stroke-width="3"/>
+  <text x="128" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="84" font-weight="800" fill="#f0f6fc">Astro SEO Toolkit</text>
+  <text x="128" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="#8b949e">llms.txt · JSON-LD · IndexNow · sitemap · robots.txt</text>
+  <text x="128" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="#8b949e">Zero dependencies · Node 18+ · Agent skill included</text>
+  <rect x="128" y="440" width="220" height="56" rx="28" fill="#2ea043"/>
+  <text x="238" y="477" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle">MIT Licensed</text>
+</svg>
