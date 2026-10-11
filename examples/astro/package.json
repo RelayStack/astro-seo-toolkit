@@ -1,0 +1,11 @@
+{
+  "name": "astro-seo-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "seo": "npx -y github:RelayStack/astro-seo-toolkit astro-seo-llms --dir src/content --site https://example.com --out public/llms.txt && npx -y github:RelayStack/astro-seo-toolkit astro-seo-sitemap --dir src/content --site https://example.com --out public/sitemap.xml",
+    "dev": "astro dev",
+    "build": "npm run seo && astro build"
+  }
+}
