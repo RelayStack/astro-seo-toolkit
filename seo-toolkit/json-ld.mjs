@@ -13,8 +13,8 @@ export function localBusiness(input) {
       streetAddress: input.address.street,
       postalCode: input.address.zip,
       addressLocality: input.address.city,
-      addressCountry: input.address.country || "CH",
     };
+    if (input.address.country) schema.address.addressCountry = input.address.country;
   }
   if (input.geo) schema.geo = { "@type": "GeoCoordinates", latitude: input.geo.lat, longitude: input.geo.lng };
   if (input.hours) schema.openingHoursSpecification = input.hours.map((h) => ({ "@type": "OpeningHoursSpecification", ...h }));
@@ -35,11 +35,12 @@ export function service(input) {
   }
   if (input.areaServed) schema.areaServed = input.areaServed;
   if (input.price) {
+    const currency = input.price.currency || "USD";
     schema.offers = {
       "@type": "Offer",
-      priceCurrency: input.price.currency || "CHF",
+      priceCurrency: currency,
       price: input.price.from,
-      description: input.price.note || `ab CHF ${input.price.from}`,
+      description: input.price.note || `${currency} ${input.price.from}`,
     };
   }
   return schema;

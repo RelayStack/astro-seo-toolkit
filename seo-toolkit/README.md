@@ -21,7 +21,7 @@ Titles and descriptions come from Markdown frontmatter (`title:`, `description:`
 ```js
 import { collectPages, renderLlmsTxt } from "./llms-txt.mjs";
 const pages = await collectPages("src/content/blog", "https://example.com");
-const txt = renderLlmsTxt({ title: "Beispiel", description: "Index", pages });
+const txt = renderLlmsTxt({ title: "Example", description: "Index", pages });
 ```
 
 ## json-ld.mjs — schema builders
@@ -30,34 +30,34 @@ const txt = renderLlmsTxt({ title: "Beispiel", description: "Index", pages });
 import { localBusiness, service, faqPage, toScript } from "./json-ld.mjs";
 
 toScript(localBusiness({
-  name: "Beispiel GmbH",
+  name: "Acme Cleaning Co.",
   url: "https://example.com",
-  phone: "+41 61 000 00 00",
-  priceRange: "CHF 100–300",
-  address: { street: "Musterstrasse 1", zip: "4000", city: "Basel" },
-  geo: { lat: 47.5596, lng: 7.5886 },
+  phone: "+1 512-555-0100",
+  priceRange: "$100-$300",
+  address: { street: "123 Main St", zip: "78701", city: "Austin", country: "US" },
+  geo: { lat: 30.2672, lng: -97.7431 },
   hours: [{ dayOfWeek: ["Monday", "Tuesday"], opens: "08:00", closes: "17:00" }],
-  sameAs: ["https://www.instagram.com/beispiel"],
+  sameAs: ["https://www.instagram.com/acmecleaning"],
 }));
 
 toScript(service({
-  name: "Ferienwohnung Reinigung",
-  url: "https://example.com/reinigung",
-  description: "Endreinigung mit Abnahmegarantie.",
-  provider: { name: "Beispiel GmbH", url: "https://example.com" },
-  areaServed: "Basel",
-  price: { from: "120" },            // → CHF offer with "ab CHF 120" note
+  name: "House Cleaning",
+  url: "https://example.com/cleaning",
+  description: "Deep clean with satisfaction guarantee.",
+  provider: { name: "Acme Cleaning Co.", url: "https://example.com" },
+  areaServed: "Austin, TX",
+  price: { from: "120", currency: "USD", note: "From $120, flat rate" },
 }));
 
-toScript(faqPage([{ q: "Was kostet die Reinigung?", a: "Ab CHF 120, pauschal." }]));
+toScript(faqPage([{ q: "How much does cleaning cost?", a: "From $120, flat rate." }]));
 ```
 
-`addressCountry` defaults to `CH`, currency to `CHF`. `toScript` wraps any object in a `<script type="application/ld+json">` tag.
+No locale is assumed: pass `country` on addresses and `currency` on prices explicitly (currency falls back to `USD`, the offer note to `"USD 120"` style). `toScript` wraps any object in a `<script type="application/ld+json">` tag.
 
 ## indexnow.mjs — instant indexing
 
 ```bash
-node indexnow.mjs --host example.com --key YOUR_KEY --url https://example.com/neu --url https://example.com/angebot
+node indexnow.mjs --host example.com --key YOUR_KEY --url https://example.com/new --url https://example.com/offers
 ```
 
 | Flag | Required | What it does |
@@ -70,7 +70,7 @@ First publish your key as a text file at `https://YOUR_HOST/YOUR_KEY.txt`, then 
 
 ```js
 import { submit } from "./indexnow.mjs";
-await submit({ host: "example.com", key: "KEY", urls: ["https://example.com/neu"] });
+await submit({ host: "example.com", key: "KEY", urls: ["https://example.com/new"] });
 // → { ok: true, status: 200 }
 ```
 

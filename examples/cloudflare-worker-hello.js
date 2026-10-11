@@ -7,6 +7,6 @@ export default {
     if (url.pathname === "/health") {
       return Response.json({ ok: true });
     }
-    return Response.json({ hello: "RelayStack lab" });
+    return Response.json({ hello: "world" });
   },
 };

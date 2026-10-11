@@ -1,4 +1,4 @@
-# GEO checklist 2026 — Swiss business sites
+# GEO checklist 2026 — local business sites
 
 Generative-engine optimization: what makes ChatGPT, Perplexity, Gemini and AI Overviews cite your pages. Pair with the `seo-toolkit/` generators.
 
@@ -12,14 +12,14 @@ Generative-engine optimization: what makes ChatGPT, Perplexity, Gemini and AI Ov
 
 - [ ] `llms.txt` at site root, regenerated on every content change (`llms-txt.mjs`)
 - [ ] JSON-LD on every page: `LocalBusiness` globally, `Service` per offer, `FAQPage` where Q&A exists (`json-ld.mjs`)
-- [ ] Prices as structured `Offer` with `priceCurrency: CHF`, visible `ab CHF` note
-- [ ] One H1 per page, question-shaped H2s (`Wie viel kostet …?`) so answers are quotable
+- [ ] Prices as structured `Offer` with explicit `priceCurrency` and a matching visible note
+- [ ] One H1 per page, question-shaped H2s (`How much does … cost?`) so answers are quotable
 
 ## Quotable content
 
 - [ ] First paragraph answers the page's core question in 40–60 words
 - [ ] Facts as plain statements with numbers, prices, durations — no superlatives
-- [ ] German de-CH, Sie-form; canton + city named in copy (`areaServed`)
+- [ ] Written in your customers' language and locale; region + city named in copy (`areaServed`)
 - [ ] Author/business named consistently everywhere (NAP consistency)
 
 ## Trust signals LLMs reuse
