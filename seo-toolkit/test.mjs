@@ -88,3 +88,20 @@ test("robots can disallow AI crawlers", () => {
   assert.ok(txt.includes("User-agent: GPTBot"));
   assert.ok(txt.includes("Disallow: /"));
 });
+
+test("skill scripts stay in sync with seo-toolkit", async () => {
+  const { readdir, readFile } = await import("node:fs/promises");
+  const { join, dirname } = await import("node:path");
+  const { fileURLToPath } = await import("node:url");
+  const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+  const lib = (await readdir(join(root, "seo-toolkit"))).filter((f) => f.endsWith(".mjs") && f !== "test.mjs");
+  const vendored = await readdir(join(root, "skills/astro-seo/scripts"));
+  assert.deepEqual([...lib].sort(), [...vendored].sort());
+  for (const f of lib) {
+    const [a, b] = await Promise.all([
+      readFile(join(root, "seo-toolkit", f), "utf8"),
+      readFile(join(root, "skills/astro-seo/scripts", f), "utf8"),
+    ]);
+    assert.equal(b, a, `${f} out of sync`);
+  }
+});

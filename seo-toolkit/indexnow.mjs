@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 export function buildPayload({ host, key, urls }) {
   return {
     endpoint: "https://api.indexnow.org/indexnow",
