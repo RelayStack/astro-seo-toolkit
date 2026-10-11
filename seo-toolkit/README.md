@@ -116,8 +116,16 @@ node robots.mjs --site https://example.com --disallow-ai
 | `--disallow-ai` | Adds `Disallow: /` blocks for GPTBot, CCBot, anthropic-ai, ClaudeBot, PerplexityBot. Use only when the site owner opts out — blocking AI crawlers also blocks AI citations |
 | `--out` | Output file; prints to stdout if omitted |
 
+## check.mjs — verify before deploy
+
+```bash
+node check.mjs --dir public --site https://example.com
+```
+
+Reads `llms.txt`, `sitemap.xml` and `robots.txt` from the dir, checks each against its spec (H1 + absolute links, urlset + locs, absolute Sitemap line) and fails when sitemap and `llms.txt` disagree. Prints a JSON report, exits non-zero on any issue. Run it in CI after build, before deploy.
+
 ## Test
 
 ```bash
-npm test   # node --test, 12 tests, no framework
+npm test   # node --test, 27 tests, no framework
 ```

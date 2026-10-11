@@ -18,6 +18,7 @@ If this saves you an hour, leave a ⭐ — it keeps the project alive.
 | IndexNow | [`seo-toolkit/indexnow.mjs`](seo-toolkit/indexnow.mjs) | Instant indexing via Bing, Yandex, Seznam, Naver |
 | Sitemap | [`seo-toolkit/sitemap.mjs`](seo-toolkit/sitemap.mjs) | `sitemap.xml` from the same content directory |
 | robots.txt | [`seo-toolkit/robots.mjs`](seo-toolkit/robots.mjs) | Sitemap reference + optional AI-crawler rules |
+| Validator | [`seo-toolkit/check.mjs`](seo-toolkit/check.mjs) | Verify generated files + sitemap/llms agreement before deploy |
 | GEO checklist | [`notes/geo-checklist.md`](notes/geo-checklist.md) | 2026 AI-search checklist for local business sites |
 
 Full flags and API per tool: [`seo-toolkit/README.md`](seo-toolkit/README.md).
@@ -31,6 +32,7 @@ node llms-txt.mjs --dir ../notes --site https://example.com --out ../public/llms
 node llms-full.mjs --dir ../notes --site https://example.com --out ../public/llms-full.txt
 node sitemap.mjs  --dir ../notes --site https://example.com --out ../public/sitemap.xml
 node robots.mjs   --site https://example.com --out ../public/robots.txt
+node check.mjs    --dir ../public --site https://example.com
 node indexnow.mjs --host example.com --key YOUR_KEY --url https://example.com/new
 ```
 
@@ -97,7 +99,7 @@ skills/astro-seo/   installable agent skill (self-contained: SKILL.md, scripts/,
 notes/              short checklists and tooling notes
 examples/           minimal runnable Cloudflare Worker snippet
 llms.txt            machine-readable index of this repo
-package.json        npx bins: astro-seo-llms, -sitemap, -robots, -indexnow
+package.json        npx bins: astro-seo-llms, -llms-full, -sitemap, -robots, -indexnow
 ```
 
 ## Contributing
