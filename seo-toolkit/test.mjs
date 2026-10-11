@@ -162,7 +162,10 @@ test("renderLlmsFull inlines url + body per page", async () => {
 
 test("collectFull respects the limit", async () => {
   const { collectFull } = await import("./llms-full.mjs");
-  const pages = await collectFull("../notes", "https://example.com", 1);
+  const { join, dirname } = await import("node:path");
+  const { fileURLToPath } = await import("node:url");
+  const notes = join(dirname(fileURLToPath(import.meta.url)), "..", "notes");
+  const pages = await collectFull(notes, "https://example.com", 1);
   assert.equal(pages.length, 1);
 });
 
