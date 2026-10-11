@@ -6,6 +6,7 @@
   "license": "MIT",
   "bin": {
     "astro-seo-llms": "./seo-toolkit/llms-txt.mjs",
+    "astro-seo-llms-full": "./seo-toolkit/llms-full.mjs",
     "astro-seo-sitemap": "./seo-toolkit/sitemap.mjs",
     "astro-seo-robots": "./seo-toolkit/robots.mjs",
     "astro-seo-indexnow": "./seo-toolkit/indexnow.mjs"

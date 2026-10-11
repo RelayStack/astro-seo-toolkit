@@ -24,6 +24,25 @@ const pages = await collectPages("src/content/blog", "https://example.com");
 const txt = renderLlmsTxt({ title: "Example", description: "Index", pages });
 ```
 
+## llms-full.mjs — full content for agents
+
+Companion to `llms.txt` per the spec: same pages, full Markdown bodies inlined. For agents that need more than titles and excerpts.
+
+```bash
+node llms-full.mjs --dir src/content/blog --site https://example.com --out public/llms-full.txt
+```
+
+| Flag | Required | What it does |
+| ---- | -------- | ------------ |
+| `--dir` / `--site` / `--title` / `--description` / `--out` | as `llms-txt.mjs` | Same semantics |
+| `--limit` | no | Max pages to inline (default 200, guards giant sites) |
+
+```js
+import { collectFull, renderLlmsFull } from "./llms-full.mjs";
+const pages = await collectFull("src/content/blog", "https://example.com");
+const txt = renderLlmsFull({ title: "Example", description: "Full", pages });
+```
+
 ## json-ld.mjs — schema builders
 
 ```js

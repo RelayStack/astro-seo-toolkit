@@ -141,3 +141,27 @@ test("checkJsonLd rejects invalid JSON and typeless schema", () => {
   assert.deepEqual(checkJsonLd('{"a":1}').issues, ["missing @context/@type"]);
   assert.deepEqual(checkJsonLd('{"@context":"https://schema.org","@type":"FAQPage"}').issues, []);
 });
+
+test("stripFrontmatter removes the block, keeps the body", async () => {
+  const { stripFrontmatter } = await import("./llms-full.mjs");
+  assert.equal(stripFrontmatter('---\ntitle: T\n---\n# Body text'), "# Body text\n");
+});
+
+test("renderLlmsFull inlines url + body per page", async () => {
+  const { renderLlmsFull } = await import("./llms-full.mjs");
+  const txt = renderLlmsFull({
+    title: "Demo",
+    description: "Full",
+    pages: [{ title: "A", url: "https://example.com/a", body: "# A body\n" }],
+  });
+  assert.ok(txt.startsWith("# Demo"));
+  assert.ok(txt.includes("## A"));
+  assert.ok(txt.includes("https://example.com/a"));
+  assert.ok(txt.includes("# A body"));
+});
+
+test("collectFull respects the limit", async () => {
+  const { collectFull } = await import("./llms-full.mjs");
+  const pages = await collectFull("../notes", "https://example.com", 1);
+  assert.equal(pages.length, 1);
+});
