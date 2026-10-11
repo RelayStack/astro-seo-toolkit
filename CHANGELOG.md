@@ -4,6 +4,13 @@ All notable changes, newest first. Versions follow semver.
 
 ## Unreleased
 
+## 0.3.0 — 2026-10-11
+
+- `check.mjs` dist validator (llms.txt/sitemap/robots + agreement check), wired into the skill audit
+- Minimal Astro integration example (`examples/astro/`)
+- Repo professionalism: CI matrix, CONTRIBUTING, issue/PR templates, SECURITY.md, CHANGELOG
+- Q&A discussions seeded (Astro wiring, llms.txt honesty)
+
 ## 0.2.0 — 2026-10-11
 
 - Installable `astro-seo` agent skill (`skills/astro-seo/`: SKILL.md, scripts, Astro/audit/GEO references)
