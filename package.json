@@ -12,6 +12,7 @@
     "astro-seo-indexnow": "./seo-toolkit/indexnow.mjs"
   },
   "keywords": ["seo", "astro", "json-ld", "llms-txt", "indexnow", "sitemap", "geo"],
+  "homepage": "https://github.com/RelayStack/astro-seo-toolkit#readme",
   "files": ["seo-toolkit/", "skills/", "examples/", "notes/", "README.md", "LICENSE", "CHANGELOG.md"],
   "exports": {
     "./llms-txt": "./seo-toolkit/llms-txt.mjs",
