@@ -6,6 +6,7 @@ Small experiments, snippets and tooling notes from RelayStack (Basel).
 
 - `examples/` — minimal, runnable Cloudflare / web snippets
 - `notes/` — short tooling notes
+- `seo-toolkit/` — dependency-free SEO helpers: llms.txt generator, JSON-LD builders, IndexNow submitter
 
 ## Conventions
 

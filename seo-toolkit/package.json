@@ -1,0 +1,10 @@
+{
+  "name": "seo-toolkit",
+  "version": "0.1.0",
+  "description": "Dependency-free SEO helpers: llms.txt generator, JSON-LD builders, IndexNow submitter.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test.mjs"
+  }
+}
