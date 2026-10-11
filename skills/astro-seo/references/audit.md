@@ -1,6 +1,6 @@
 # Audit
 
-Run against source or `dist/`. Report each line pass/fail with the evidence. Fix failures before launch.
+Run against source or `dist/`. Report each line pass/fail with the evidence. Fix failures before launch. Shortcut: `node scripts/check.mjs --dir <public-dir> [--site <url>]` automates the file checks below.
 
 ## Files exist and agree
 
