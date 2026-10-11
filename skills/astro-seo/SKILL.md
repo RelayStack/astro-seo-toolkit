@@ -19,6 +19,7 @@ Zero-dependency Node scripts in `scripts/` plus Astro wiring guides in `referenc
 | audit [path] | Run every check in `references/audit.md` against source or `dist/`, report pass/fail |
 | schema [page] | Emit JSON-LD with `scripts/json-ld.mjs`; per-page recipes in `references/astro-wiring.md` |
 | llms-txt | Generate `public/llms.txt` from the content dir, then validate it |
+| llms-full | Inline full page bodies into `public/llms-full.txt` (companion for agents that need more than the index) |
 | sitemap / robots | Generate `public/sitemap.xml` / `public/robots.txt` |
 | submit [urls] | IndexNow the changed URLs after deploy |
 | geo | Walk `references/geo.md` item by item, fix or file issues for each gap |

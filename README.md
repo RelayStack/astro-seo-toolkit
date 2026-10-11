@@ -13,6 +13,7 @@ If this saves you an hour, leave a ⭐ — it keeps the project alive.
 | Tool | File | One-liner |
 | ---- | ---- | --------- |
 | llms.txt | [`seo-toolkit/llms-txt.mjs`](seo-toolkit/llms-txt.mjs) | Content index for LLMs from your Markdown directory |
+| llms-full.txt | [`seo-toolkit/llms-full.mjs`](seo-toolkit/llms-full.mjs) | Full page bodies inlined for agents that need more than the index |
 | JSON-LD | [`seo-toolkit/json-ld.mjs`](seo-toolkit/json-ld.mjs) | `LocalBusiness`, `Service`, `FAQPage` schema in any locale |
 | IndexNow | [`seo-toolkit/indexnow.mjs`](seo-toolkit/indexnow.mjs) | Instant indexing via Bing, Yandex, Seznam, Naver |
 | Sitemap | [`seo-toolkit/sitemap.mjs`](seo-toolkit/sitemap.mjs) | `sitemap.xml` from the same content directory |
@@ -27,6 +28,7 @@ Full flags and API per tool: [`seo-toolkit/README.md`](seo-toolkit/README.md).
 cd seo-toolkit
 npm test                                    # 21/21 should pass
 node llms-txt.mjs --dir ../notes --site https://example.com --out ../public/llms.txt
+node llms-full.mjs --dir ../notes --site https://example.com --out ../public/llms-full.txt
 node sitemap.mjs  --dir ../notes --site https://example.com --out ../public/sitemap.xml
 node robots.mjs   --site https://example.com --out ../public/robots.txt
 node indexnow.mjs --host example.com --key YOUR_KEY --url https://example.com/new
