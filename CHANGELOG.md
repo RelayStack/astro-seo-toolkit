@@ -4,6 +4,13 @@ All notable changes, newest first. Versions follow semver.
 
 ## Unreleased
 
+## 0.4.0 — 2026-10-11
+
+- `llms-full.mjs`: spec-companion generator with full bodies inlined + `--limit` guard
+- Robustness: CRLF line endings, hidden dirs and `node_modules` skipped by collectors
+- npm-ready: `files` allowlist, `exports` map, `astro-seo-*` bins (name verified free)
+- Social card source (`docs/social-card.svg`, export 1280×640 PNG for upload)
+
 ## 0.3.0 — 2026-10-11
 
 - `check.mjs` dist validator (llms.txt/sitemap/robots + agreement check), wired into the skill audit
