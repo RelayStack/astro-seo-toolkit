@@ -6,7 +6,7 @@ Zero-dependency SEO toolkit for Astro and static sites. Generate `llms.txt`, `si
 
 If this saves you an hour, leave a ⭐ — it keeps the project alive.
 
-- [Tools](#tools) · [Quick start](#quick-start) · [AI agent skill](#use-with-your-ai-agent) · [Wiring into Astro](#wiring-into-astro) · [Locales](#locales) · [Layout](#layout) · [Contributing](#contributing)
+- [Tools](#tools) · [Quick start](#quick-start) · [AI agent skill](#use-with-your-ai-agent) · [Wiring into Astro](#wiring-into-astro) · [Locales](#locales) · [Layout](#layout) · [Contributing](#contributing) · [FAQ](#faq)
 
 ## Tools
 
@@ -103,6 +103,24 @@ package.json        npx bins: astro-seo-llms, -sitemap, -robots, -indexnow
 ## Contributing
 
 Questions, ideas, bug reports: use [Discussions](../../discussions). PRs welcome — keep helpers dependency-free and tested (`npm test`).
+
+## FAQ
+
+### Is this an Astro integration?
+
+No. It is framework-agnostic Node scripts plus Astro wiring guides and an example. Anything with a Markdown directory and a Node build step works: Astro, Eleventy, Hugo, Next.js static export.
+
+### Does llms.txt improve Google rankings?
+
+No. Google ignores `llms.txt`; it serves Claude, GPT, Perplexity and other agents. For Google, prioritize sitemap submission, real indexation, one valid JSON-LD block per page, and quotable content.
+
+### How is this different from astro-seo?
+
+`astro-seo` is a meta-tags component for your `<head>`. This toolkit generates the files around it — `llms.txt`, `llms-full.txt`, `sitemap.xml`, `robots.txt` — plus JSON-LD builders, IndexNow submission, a dist validator, and an agent skill that wires it all up.
+
+### Can my AI agent install and use this?
+
+Yes. `npx skills add RelayStack/astro-seo-toolkit --skill astro-seo`, or copy `skills/astro-seo/` into any harness skills dir, or run everything via `npx -y github:RelayStack/astro-seo-toolkit <command>` with no install.
 
 ## License
 

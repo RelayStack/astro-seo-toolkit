@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: Astro SEO Toolkit
+message: "If you use this software, please cite it as below."
+authors:
+  - alias: RelayStack
+    website: "https://github.com/RelayStack/astro-seo-toolkit"
+repository-code: "https://github.com/RelayStack/astro-seo-toolkit"
+license: MIT
+version: 0.4.0
