@@ -1,12 +1,12 @@
 # Astro SEO Toolkit — llms.txt, JSON-LD, IndexNow, Sitemaps
 
-[![MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) [![Node](https://img.shields.io/badge/node-18%2B-brightgreen.svg)](seo-toolkit/package.json) [![Tests](https://img.shields.io/badge/tests-14%2F14-brightgreen.svg)](seo-toolkit/test.mjs)
+[![MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) [![Node](https://img.shields.io/badge/node-18%2B-brightgreen.svg)](seo-toolkit/package.json) [![Tests](https://img.shields.io/badge/tests-15%2F15-brightgreen.svg)](seo-toolkit/test.mjs)
 
 Zero-dependency SEO toolkit for Astro and static sites. Generate `llms.txt`, `sitemap.xml` and `robots.txt`, build JSON-LD schema, and push URL updates via IndexNow — with plain Node 18+, no installs. Built for 2026 search: AI answers (ChatGPT, Perplexity, AI Overviews) cite sites that are machine-readable and quotable, and classic search (Google, Bing) still runs on sitemaps and schema.
 
 If this saves you an hour, leave a ⭐ — it keeps the project alive.
 
-- [Tools](#tools) · [Quick start](#quick-start) · [Wiring into Astro](#wiring-into-astro) · [Locales](#locales) · [Layout](#layout) · [Contributing](#contributing)
+- [Tools](#tools) · [Quick start](#quick-start) · [AI agent skill](#use-with-your-ai-agent) · [Wiring into Astro](#wiring-into-astro) · [Locales](#locales) · [Layout](#layout) · [Contributing](#contributing)
 
 ## Tools
 
@@ -25,7 +25,7 @@ Full flags and API per tool: [`seo-toolkit/README.md`](seo-toolkit/README.md).
 
 ```bash
 cd seo-toolkit
-npm test                                    # 13/13 should pass
+npm test                                    # 15/15 should pass
 node llms-txt.mjs --dir ../notes --site https://example.com --out ../public/llms.txt
 node sitemap.mjs  --dir ../notes --site https://example.com --out ../public/sitemap.xml
 node robots.mjs   --site https://example.com --out ../public/robots.txt
@@ -44,6 +44,24 @@ const html = toScript(service({
   price: { from: "120", currency: "USD", note: "From $120, flat rate" },
 }));
 ```
+
+## Use with your AI agent
+
+Install the `astro-seo` skill so your agent implements, audits and launches all of this on command:
+
+```bash
+npx skills add RelayStack/astro-seo-toolkit --skill astro-seo
+```
+
+If your harness doesn't use the registry, copy `skills/astro-seo/` to its skills dir (`~/.claude/skills/`, `~/.codex/skills/`, project's `.opencode/skills/`, …) — the folder is self-contained: SKILL.md, `scripts/`, `references/`.
+
+No install at all — run straight from GitHub:
+
+```bash
+npx -y github:RelayStack/astro-seo-toolkit astro-seo-llms --dir src/content --site https://example.com --out public/llms.txt
+```
+
+Then prompt your agent: `implement astro seo`, `audit this page`, `schema for /pricing`.
 
 ## Wiring into Astro
 
@@ -72,10 +90,12 @@ No locale is assumed. Pass `country` on addresses and `currency` on prices expli
 ## Layout
 
 ```text
-seo-toolkit/   dependency-free helpers + tests (Node 18+, no installs)
-notes/         short checklists and tooling notes
-examples/      minimal runnable Cloudflare Worker snippet
-llms.txt       machine-readable index of this repo
+seo-toolkit/        dependency-free helpers + tests (Node 18+, no installs)
+skills/astro-seo/   installable agent skill (self-contained: SKILL.md, scripts/, references/)
+notes/              short checklists and tooling notes
+examples/           minimal runnable Cloudflare Worker snippet
+llms.txt            machine-readable index of this repo
+package.json        npx bins: astro-seo-llms, -sitemap, -robots, -indexnow
 ```
 
 ## Contributing

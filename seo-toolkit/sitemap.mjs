@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { writeFile, mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 import { collectPages } from "./llms-txt.mjs";
