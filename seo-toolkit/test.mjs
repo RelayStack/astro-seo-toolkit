@@ -5,6 +5,7 @@ import { localBusiness, service, faqPage, toScript } from "./json-ld.mjs";
 import { buildPayload } from "./indexnow.mjs";
 import { renderSitemap } from "./sitemap.mjs";
 import { renderRobots } from "./robots.mjs";
+import { checkLlmsTxt, checkSitemap, checkRobots, checkJsonLd, checkAgreement } from "./check.mjs";
 
 test("frontmatter parses title and description", () => {
   const fm = parseFrontmatter('---\ntitle: Hallo\ndescription: "Welt"\n---\n# Body');
@@ -104,4 +105,39 @@ test("skill scripts stay in sync with seo-toolkit", async () => {
     ]);
     assert.equal(b, a, `${f} out of sync`);
   }
+});
+
+test("checkLlmsTxt passes a good file", () => {
+  const r = checkLlmsTxt("# T\n\n> d\n\n- [A](https://example.com/a): x");
+  assert.deepEqual(r.issues, []);
+  assert.deepEqual(r.urls, ["https://example.com/a"]);
+});
+
+test("checkLlmsTxt flags missing H1 and relative URLs", () => {
+  const r = checkLlmsTxt("No heading\n\n- [A](/a): x");
+  assert.ok(r.issues.some((i) => i.includes("H1")));
+  assert.ok(r.issues.some((i) => i.includes("non-absolute")));
+});
+
+test("checkSitemap extracts locs", () => {
+  const r = checkSitemap('<?xml version="1.0"?><urlset><url><loc>https://example.com/a</loc></url></urlset>');
+  assert.deepEqual(r.urls, ["https://example.com/a"]);
+  assert.deepEqual(r.issues, []);
+});
+
+test("checkRobots requires an absolute sitemap line", () => {
+  assert.deepEqual(checkRobots("User-agent: *\nAllow: /\n").issues, ["missing Sitemap line"]);
+  assert.deepEqual(checkRobots("User-agent: *\nAllow: /\nSitemap: https://example.com/sitemap.xml\n", "https://example.com").issues, []);
+});
+
+test("checkAgreement spots sitemap/llms drift", () => {
+  const r = checkAgreement(["https://example.com/a"], ["https://example.com/a", "https://example.com/b"]);
+  assert.equal(r.issues.length, 1);
+  assert.ok(r.issues[0].includes("https://example.com/b"));
+});
+
+test("checkJsonLd rejects invalid JSON and typeless schema", () => {
+  assert.deepEqual(checkJsonLd("nope").issues, ["invalid JSON"]);
+  assert.deepEqual(checkJsonLd('{"a":1}').issues, ["missing @context/@type"]);
+  assert.deepEqual(checkJsonLd('{"@context":"https://schema.org","@type":"FAQPage"}').issues, []);
 });
