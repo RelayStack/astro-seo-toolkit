@@ -165,3 +165,29 @@ test("collectFull respects the limit", async () => {
   const pages = await collectFull("../notes", "https://example.com", 1);
   assert.equal(pages.length, 1);
 });
+
+test("frontmatter parses CRLF files", () => {
+  const fm = parseFrontmatter('---\r\ntitle: Hi\r\ndescription: There\r\n---\r\nBody');
+  assert.equal(fm.title, "Hi");
+  assert.equal(fm.description, "There");
+});
+
+test("stripMarkdown normalizes CRLF", () => {
+  assert.ok(!stripMarkdown("# T\r\n\r\nSome **bold**").includes("\r"));
+});
+
+test("collectPages skips hidden dirs and node_modules", async () => {
+  const { mkdtemp, mkdir, writeFile, rm } = await import("node:fs/promises");
+  const { tmpdir } = await import("node:os");
+  const { join: pjoin } = await import("node:path");
+  const { collectPages } = await import("./llms-txt.mjs");
+  const dir = await mkdtemp(pjoin(tmpdir(), "seo-"));
+  await mkdir(pjoin(dir, ".hidden"), { recursive: true });
+  await mkdir(pjoin(dir, "node_modules", "pkg"), { recursive: true });
+  await writeFile(pjoin(dir, "a.md"), "# A");
+  await writeFile(pjoin(dir, ".hidden", "h.md"), "# H");
+  await writeFile(pjoin(dir, "node_modules", "pkg", "n.md"), "# N");
+  const pages = await collectPages(dir, "https://example.com");
+  await rm(dir, { recursive: true, force: true });
+  assert.deepEqual(pages.map((p) => p.url), ["https://example.com/a"]);
+});
