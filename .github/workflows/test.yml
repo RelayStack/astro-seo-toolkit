@@ -16,3 +16,29 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: npm test
+      - run: npm run check:skill
+
+  # Install the packed tarball and invoke the bins the way a user does.
+  # Catches packaging regressions (missing files, broken bin entrypoints,
+  # no-op CLIs) that unit tests against the source tree cannot see.
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm pack
+      - run: |
+          mkdir -p /tmp/smoke && cd /tmp/smoke
+          npm init -y
+          npm install "$GITHUB_WORKSPACE"/astro-seo-toolkit-*.tgz
+          mkdir -p content
+          printf -- '---\ntitle: Smoke\ndescription: smoke\n---\n# Smoke\n' > content/a.md
+          npx astro-seo-toolkit --dir content --site https://example.com --out dist --llms-full
+          npx astro-seo-check --dir dist --site https://example.com
+          for f in llms.txt llms-full.txt sitemap.xml robots.txt; do
+            test -s "dist/$f" || { echo "missing or empty: dist/$f"; exit 1; }
+          done
+          npx astro-seo-sitemap --dir content --site https://example.com | grep -q '<urlset'
+          echo "package smoke test ok"
