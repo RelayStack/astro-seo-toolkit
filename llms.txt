@@ -1,10 +1,14 @@
 # Astro SEO Toolkit
 
-> Zero-dependency SEO helpers for Astro and static sites: llms.txt generator, JSON-LD schema builders, IndexNow submitter, sitemap and robots.txt generators. Tested, no installs, Node 18+.
+> Zero-dependency SEO helpers for Astro and static sites: llms.txt generator, JSON-LD schema builders, IndexNow submitter, sitemap and robots.txt generators — plus a drop-in Astro integration and an installable agent skill. Tested, no installs, Node 18+.
 
 ## Docs
 
-- [README](https://github.com/RelayStack/astro-seo-toolkit#readme): overview, quick start, Astro wiring
-- [Tool reference](https://github.com/RelayStack/astro-seo-toolkit/tree/main/seo-toolkit): flags and API for every helper
+- [README](https://github.com/RelayStack/astro-seo-toolkit#readme): overview, quick start, Astro integration
+- [Tool reference](https://github.com/RelayStack/astro-seo-toolkit/tree/main/seo-toolkit): flags and API for every helper, including the integration options
+- [npm package](https://www.npmjs.com/package/astro-seo-toolkit): install, bins, versions
+- [Astro example](https://github.com/RelayStack/astro-seo-toolkit/tree/main/examples/astro): minimal runnable project wired with the integration
+- [Agent skill](https://github.com/RelayStack/astro-seo-toolkit/tree/main/skills/astro-seo): installable `astro-seo` skill for Claude, Codex, OpenCode and friends
 - [GEO checklist](https://github.com/RelayStack/astro-seo-toolkit/blob/main/notes/geo-checklist.md): 2026 AI-search checklist for local business sites
+- [Changelog](https://github.com/RelayStack/astro-seo-toolkit/blob/main/CHANGELOG.md): release notes
 - [Cloudflare Worker example](https://github.com/RelayStack/astro-seo-toolkit/blob/main/examples/cloudflare-worker-hello.js): minimal JSON + health-check worker

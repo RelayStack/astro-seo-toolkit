@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Astro build output
+dist/
+.astro/
+
+# Package tarballs
+*.tgz
+
+# Local env and editor
+.env
+.env.*
+.DS_Store
+*.log

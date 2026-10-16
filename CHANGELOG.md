@@ -4,6 +4,17 @@ All notable changes, newest first. Versions follow semver.
 
 ## Unreleased
 
+## 0.5.0 — 2026-10-16
+
+- **Fixed: every `npx` bin was a silent no-op.** The CLI guard compared `import.meta.url` to the basename of `process.argv[1]`, but npm runs bins through a `node_modules/.bin/*` symlink, so `argv[1]` was the link (`astro-seo-llms`) and never matched the real file (`llms-txt.mjs`). `npx astro-seo-llms`, `npm run` build hooks and the `github:RelayStack/...` form all exited `0` and wrote nothing. Now resolved with `realpathSync` + `pathToFileURL`, covered by a regression test that executes a bin through a symlink.
+- New: `astro-seo-toolkit/integration` — a real Astro integration that writes `llms.txt`, `llms-full.txt`, `sitemap.xml` and `robots.txt` during `astro build`. Exposes `generate()`, `writeFiles()` and `normalizeOptions()` for build scripts.
+- New bins: `astro-seo-toolkit` (everything at once) and `astro-seo-check` (validator).
+- New: `scripts/sync-skill.mjs` generates the skill's vendored script copies; `npm run check:skill` fails CI if they drift.
+- Usage hints now print the `npx astro-seo-*` invocation instead of `node <file>.mjs`.
+- Docs: README rewritten — who it's for, Astro integration, comparison table, tighter install paths; social card redesigned and exported to `docs/social-preview.png`.
+- Packaging: `engines`, `publishConfig`, optional `astro` peer dependency, expanded keywords, `.gitignore`.
+- Tests: 33 (was 27).
+
 ## 0.4.0 — 2026-10-11
 
 - `llms-full.mjs`: spec-companion generator with full bodies inlined + `--limit` guard

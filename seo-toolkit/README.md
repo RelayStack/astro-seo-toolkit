@@ -2,6 +2,47 @@
 
 All helpers live in `seo-toolkit/`, run on Node 18+ with zero dependencies. Every file works as a CLI and as an import. Exit code is non-zero on error; `--out FILE` writes, otherwise output goes to stdout.
 
+Usage hints print the `npx astro-seo-*` form, which is how most people run these. From this repo the equivalents are `node <file>.mjs …`.
+
+## integration.mjs — Astro integration + one-shot generator
+
+Writes `llms.txt`, `llms-full.txt`, `sitemap.xml` and `robots.txt` in a single pass. As an Astro integration it runs on `astro build`:
+
+```js
+// astro.config.mjs
+import astroSeo from "astro-seo-toolkit/integration";
+
+export default defineConfig({
+  site: "https://example.com",
+  integrations: [astroSeo({ contentDir: ["src/content/blog", "src/content/services"], llmsFull: true })],
+});
+```
+
+| Option | Default | What it does |
+| ------ | ------- | ------------ |
+| `contentDir` | `src/content` | Markdown dir, or an array of them (deduped by URL) |
+| `site` | `config.site` | Base URL; falls back to Astro's `site` |
+| `llms` / `llmsFull` | `true` / `false` | Write `llms.txt` / `llms-full.txt` |
+| `llmsFullLimit` | `200` | Max pages inlined into `llms-full.txt` |
+| `sitemap` / `robots` | `true` / `true` | Write `sitemap.xml` / `robots.txt` |
+| `disallowAI` | `false` | Block GPTBot/CCBot/ClaudeBot/PerplexityBot |
+| `changefreq` | `weekly` | `<changefreq>` for every sitemap entry |
+
+The same code runs standalone, outside Astro:
+
+```bash
+node integration.mjs --dir src/content --dir src/pages --site https://example.com --out dist --llms-full
+```
+
+```js
+import { generate, writeFiles } from "./integration.mjs";
+
+const { files, pages } = await generate({ dirs: ["src/content"], site: "https://example.com" });
+await writeFiles("dist", files);
+```
+
+`normalizeOptions()` is exported too, for build scripts that need the defaults.
+
 ## llms-txt.mjs — content index for LLMs
 
 ```bash
@@ -127,5 +168,5 @@ Reads `llms.txt`, `sitemap.xml` and `robots.txt` from the dir, checks each again
 ## Test
 
 ```bash
-npm test   # node --test, 27 tests, no framework
+npm test   # node --test, 33 tests, no framework
 ```

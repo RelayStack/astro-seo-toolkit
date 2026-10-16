@@ -1,6 +1,8 @@
 #!/usr/bin/env node
+import { realpathSync } from "node:fs";
 import { writeFile, mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
+import { pathToFileURL } from "node:url";
 
 export function renderRobots({ sitemap = "/sitemap.xml", disallowAI = false } = {}) {
   const lines = ["User-agent: *", "Allow: /", ""];
@@ -22,12 +24,20 @@ function args(argv) {
   return out;
 }
 
-const isCli = process.argv[1] && import.meta.url.endsWith(process.argv[1].split("/").pop());
+const isCli = (() => {
+  try {
+    // npm runs bins through a node_modules/.bin symlink: process.argv[1] is the
+    // link, import.meta.url is the real file. Compare resolved paths, not suffixes.
+    return Boolean(process.argv[1]) && import.meta.url === pathToFileURL(realpathSync(process.argv[1])).href;
+  } catch {
+    return false;
+  }
+})();
 
 if (isCli) {
   const a = args(process.argv.slice(2));
   if (!a.site) {
-    console.error("Usage: node robots.mjs --site https://example.com [--sitemap /sitemap.xml] [--disallow-ai] [--out public/robots.txt]");
+    console.error("Usage: npx astro-seo-robots --site https://example.com [--sitemap /sitemap.xml] [--disallow-ai] [--out public/robots.txt]");
     process.exit(1);
   }
   const sitemap = (a.sitemap || "/sitemap.xml").startsWith("http")

@@ -194,3 +194,104 @@ test("collectPages skips hidden dirs and node_modules", async () => {
   await rm(dir, { recursive: true, force: true });
   assert.deepEqual(pages.map((p) => p.url), ["https://example.com/a"]);
 });
+
+test("normalizeOptions accepts string, array and the contentDirs alias", async () => {
+  const { normalizeOptions } = await import("./integration.mjs");
+  assert.deepEqual(normalizeOptions({ contentDir: "src/content" }).dirs, ["src/content"]);
+  assert.deepEqual(normalizeOptions({ contentDir: ["a", "b"] }).dirs, ["a", "b"]);
+  assert.deepEqual(normalizeOptions({ contentDirs: ["c"] }).dirs, ["c"]);
+  assert.deepEqual(normalizeOptions().dirs, ["src/content"]);
+});
+
+test("default export is an Astro integration with the expected hooks", async () => {
+  const { default: astroSeo } = await import("./integration.mjs");
+  const integration = astroSeo({ contentDir: "src/content" });
+  assert.equal(integration.name, "astro-seo-toolkit");
+  assert.equal(typeof integration.hooks["astro:config:setup"], "function");
+  assert.equal(typeof integration.hooks["astro:build:done"], "function");
+});
+
+test("generate emits llms/sitemap/robots and dedupes across dirs", async () => {
+  const { mkdtemp, mkdir, writeFile, rm } = await import("node:fs/promises");
+  const { tmpdir } = await import("node:os");
+  const { join: pjoin } = await import("node:path");
+  const { generate } = await import("./integration.mjs");
+  const dir = await mkdtemp(pjoin(tmpdir(), "seo-gen-"));
+  await mkdir(pjoin(dir, "blog"), { recursive: true });
+  await writeFile(pjoin(dir, "blog", "a.md"), "---\ntitle: A\ndescription: da\n---\n# A");
+  await writeFile(pjoin(dir, "b.md"), "---\ntitle: B\n---\n# B");
+  const { files, pages } = await generate({ dirs: [dir, dir], site: "https://example.com" });
+  await rm(dir, { recursive: true, force: true });
+  assert.deepEqual(pages.map((p) => p.url), ["https://example.com/b", "https://example.com/blog/a"]);
+  assert.ok(files["llms.txt"].includes("- [A](https://example.com/blog/a): da"));
+  assert.ok(files["sitemap.xml"].includes("<loc>https://example.com/b</loc>"));
+  assert.ok(files["robots.txt"].includes("Sitemap: https://example.com/sitemap.xml"));
+  assert.equal(files["llms-full.txt"], undefined);
+});
+
+test("generate honours llmsFull, robots and trailing-slash site", async () => {
+  const { mkdtemp, writeFile, rm } = await import("node:fs/promises");
+  const { tmpdir } = await import("node:os");
+  const { join: pjoin } = await import("node:path");
+  const { generate } = await import("./integration.mjs");
+  const dir = await mkdtemp(pjoin(tmpdir(), "seo-flags-"));
+  await writeFile(pjoin(dir, "a.md"), "---\ntitle: A\n---\n# Body A");
+  const { files } = await generate({
+    dirs: [dir],
+    site: "https://example.com/",
+    llmsFull: true,
+    robots: false,
+    disallowAI: true,
+  });
+  await rm(dir, { recursive: true, force: true });
+  assert.ok(files["llms-full.txt"].includes("## A"));
+  assert.ok(files["llms-full.txt"].includes("# Body A"));
+  assert.equal(files["robots.txt"], undefined);
+  assert.ok(files["sitemap.xml"].includes("<loc>https://example.com/a</loc>"));
+});
+
+test("writeFiles writes each file into the output directory", async () => {
+  const { mkdtemp, readFile, rm } = await import("node:fs/promises");
+  const { tmpdir } = await import("node:os");
+  const { join: pjoin } = await import("node:path");
+  const { writeFiles } = await import("./integration.mjs");
+  const dir = await mkdtemp(pjoin(tmpdir(), "seo-out-"));
+  const written = await writeFiles(pjoin(dir, "dist"), { "llms.txt": "hello", "robots.txt": "there" });
+  const text = await readFile(pjoin(dir, "dist", "llms.txt"), "utf8");
+  await rm(dir, { recursive: true, force: true });
+  assert.deepEqual(written, ["llms.txt", "robots.txt"]);
+  assert.equal(text, "hello");
+});
+
+test("bins run when invoked through a .bin-style symlink", { skip: process.platform === "win32" }, async () => {
+  const { mkdtemp, mkdir, writeFile, symlink, rm } = await import("node:fs/promises");
+  const { tmpdir } = await import("node:os");
+  const { join: pjoin, dirname: pdirname } = await import("node:path");
+  const { fileURLToPath } = await import("node:url");
+  const { execFile } = await import("node:child_process");
+  const { promisify } = await import("node:util");
+  const run = promisify(execFile);
+
+  const root = pjoin(pdirname(fileURLToPath(import.meta.url)), "..");
+  const tmp = await mkdtemp(pjoin(tmpdir(), "seo-bin-"));
+  await mkdir(pjoin(tmp, "content"), { recursive: true });
+  await writeFile(pjoin(tmp, "content", "a.md"), "---\ntitle: A\ndescription: da\n---\n# A");
+
+  // npm installs bins as symlinks (node_modules/.bin/*), and npx/npm run execute
+  // them that way. argv[1] is then the link while import.meta.url is the real
+  // file, so a naive suffix comparison silently disables the CLI.
+  const cases = [
+    ["astro-seo-sitemap", "sitemap.mjs", ["--dir", "content", "--site", "https://example.com"]],
+    ["astro-seo-toolkit", "integration.mjs", ["--dir", "content", "--site", "https://example.com"]],
+  ];
+  const out = {};
+  for (const [bin, file, argv] of cases) {
+    const link = pjoin(tmp, bin);
+    await symlink(pjoin(root, "seo-toolkit", file), link);
+    out[bin] = (await run(link, argv, { cwd: tmp })).stdout;
+  }
+  await rm(tmp, { recursive: true, force: true });
+
+  assert.ok(out["astro-seo-sitemap"].includes("<urlset"), "astro-seo-sitemap must not be a silent no-op under npm");
+  assert.ok(out["astro-seo-toolkit"].includes("llms.txt"), "astro-seo-toolkit must not be a silent no-op under npm");
+});

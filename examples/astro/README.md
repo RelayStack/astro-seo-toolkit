@@ -1,11 +1,25 @@
-# Astro integration example
+# Astro example
 
-Minimal wiring of the toolkit into an Astro project. Copy the pattern, not the files — run the generators via `npx` so you always get the latest release:
+Minimal Astro project wired up with the integration. Copy the pattern, not the files.
 
 ```bash
-npx -y github:RelayStack/astro-seo-toolkit astro-seo-llms --dir src/content --site https://example.com --out public/llms.txt
-npx -y github:RelayStack/astro-seo-toolkit astro-seo-sitemap --dir src/content --site https://example.com --out public/sitemap.xml
-npx -y github:RelayStack/astro-seo-toolkit astro-seo-robots --site https://example.com --out public/robots.txt
+npm install
+npm run build   # astro build also writes llms.txt, llms-full.txt, sitemap.xml, robots.txt into dist/
 ```
 
-See `package.json` (build hook), `astro.config.mjs` (`site` + trailing slash), `src/layouts/Base.astro` (JSON-LD via `set:html`), and `src/content/blog/first-post.md` (frontmatter the generators read).
+See:
+
+- `astro.config.mjs` — the integration, `site`, trailing-slash config
+- `package.json` — Astro 7 + `astro-seo-toolkit` as a dev dependency
+- `src/layouts/Base.astro` — JSON-LD via `set:html`
+- `src/content/blog/first-post.md` — the frontmatter (`title:`, `description:`) the generators read
+
+## Without the integration
+
+If you'd rather not add a dependency, run the CLI before `astro build` instead — same output, one extra step:
+
+```bash
+npx astro-seo-toolkit --dir src/content --site https://example.com --out public
+```
+
+Neither approach needs a config file or a plugin API. The toolkit reads your Markdown directory and writes files; where they land is up to you (`--out`, or Astro's `dist/` via the integration).

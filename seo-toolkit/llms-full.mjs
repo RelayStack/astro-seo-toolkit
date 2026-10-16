@@ -1,6 +1,8 @@
 #!/usr/bin/env node
+import { realpathSync } from "node:fs";
 import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
+import { pathToFileURL } from "node:url";
 import { parseFrontmatter } from "./llms-txt.mjs";
 
 export function stripFrontmatter(text) {
@@ -49,12 +51,20 @@ function args(argv) {
   return out;
 }
 
-const isCli = process.argv[1] && import.meta.url.endsWith(process.argv[1].split("/").pop());
+const isCli = (() => {
+  try {
+    // npm runs bins through a node_modules/.bin symlink: process.argv[1] is the
+    // link, import.meta.url is the real file. Compare resolved paths, not suffixes.
+    return Boolean(process.argv[1]) && import.meta.url === pathToFileURL(realpathSync(process.argv[1])).href;
+  } catch {
+    return false;
+  }
+})();
 
 if (isCli) {
   const a = args(process.argv.slice(2));
   if (!a.dir || !a.site) {
-    console.error("Usage: node llms-full.mjs --dir src/content/blog --site https://example.com [--out public/llms-full.txt] [--limit 200]");
+    console.error("Usage: npx astro-seo-llms-full --dir src/content/blog --site https://example.com [--out public/llms-full.txt] [--limit 200]");
     process.exit(1);
   }
   const pages = await collectFull(a.dir, a.site, parseInt(a.limit || "200", 10));
