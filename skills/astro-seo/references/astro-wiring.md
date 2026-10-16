@@ -49,7 +49,7 @@ Recipes:
 } }
 ```
 
-Copy the five scripts into the Astro project's `./seo/` (or run via `npx -y github:RelayStack/astro-seo-toolkit <cmd>`).
+Copy the five scripts into the Astro project's `./seo/`, or install the package and use the integration (`astro-seo-toolkit/integration`), or run the CLI: `npx astro-seo-toolkit --dir src/content --site https://example.com --out public`.
 
 ## Dynamic routes
 

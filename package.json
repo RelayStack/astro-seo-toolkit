@@ -1,20 +1,67 @@
 {
   "name": "astro-seo-toolkit",
-  "version": "0.4.0",
-  "description": "Zero-dependency SEO toolkit for Astro & static sites: llms.txt, JSON-LD, IndexNow, sitemap.xml, robots.txt — plus an installable agent skill.",
+  "version": "0.5.0",
+  "description": "Zero-dependency SEO toolkit for Astro & static sites: llms.txt, JSON-LD, IndexNow, sitemap.xml, robots.txt — plus a drop-in Astro integration and an installable agent skill.",
   "type": "module",
   "license": "MIT",
+  "author": "RelayStack",
+  "engines": {
+    "node": ">=18"
+  },
   "bin": {
+    "astro-seo-toolkit": "./seo-toolkit/integration.mjs",
+    "astro-seo-generate": "./seo-toolkit/integration.mjs",
+    "astro-seo-check": "./seo-toolkit/check.mjs",
     "astro-seo-llms": "./seo-toolkit/llms-txt.mjs",
     "astro-seo-llms-full": "./seo-toolkit/llms-full.mjs",
     "astro-seo-sitemap": "./seo-toolkit/sitemap.mjs",
     "astro-seo-robots": "./seo-toolkit/robots.mjs",
     "astro-seo-indexnow": "./seo-toolkit/indexnow.mjs"
   },
-  "keywords": ["seo", "astro", "json-ld", "llms-txt", "indexnow", "sitemap", "geo"],
+  "keywords": [
+    "seo",
+    "astro",
+    "astro-integration",
+    "json-ld",
+    "llms-txt",
+    "indexnow",
+    "sitemap",
+    "robots-txt",
+    "structured-data",
+    "geo",
+    "ai-search",
+    "static-site"
+  ],
   "homepage": "https://github.com/RelayStack/astro-seo-toolkit#readme",
-  "files": ["seo-toolkit/", "skills/", "examples/", "notes/", "README.md", "LICENSE", "CHANGELOG.md"],
+  "bugs": {
+    "url": "https://github.com/RelayStack/astro-seo-toolkit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RelayStack/astro-seo-toolkit.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "astro": ">=4"
+  },
+  "peerDependenciesMeta": {
+    "astro": {
+      "optional": true
+    }
+  },
+  "files": [
+    "seo-toolkit/",
+    "skills/",
+    "examples/",
+    "notes/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "exports": {
+    "./integration": "./seo-toolkit/integration.mjs",
     "./llms-txt": "./seo-toolkit/llms-txt.mjs",
     "./llms-full": "./seo-toolkit/llms-full.mjs",
     "./json-ld": "./seo-toolkit/json-ld.mjs",
@@ -24,11 +71,11 @@
     "./check": "./seo-toolkit/check.mjs",
     "./package.json": "./package.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/RelayStack/astro-seo-toolkit.git"
-  },
   "scripts": {
-    "test": "node --test seo-toolkit/test.mjs"
+    "test": "node --test seo-toolkit/test.mjs",
+    "sync:skill": "node scripts/sync-skill.mjs",
+    "check:skill": "node scripts/sync-skill.mjs --check",
+    "verify": "npm test && npm run check:skill",
+    "prepack": "npm run sync:skill"
   }
 }

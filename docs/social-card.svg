@@ -1,9 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
-  <rect width="1280" height="640" fill="#0d1117"/>
-  <rect x="64" y="64" width="1152" height="512" rx="24" fill="none" stroke="#2ea043" stroke-width="3"/>
-  <text x="128" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="84" font-weight="800" fill="#f0f6fc">Astro SEO Toolkit</text>
-  <text x="128" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="#8b949e">llms.txt · JSON-LD · IndexNow · sitemap · robots.txt</text>
-  <text x="128" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="#8b949e">Zero dependencies · Node 18+ · Agent skill included</text>
-  <rect x="128" y="440" width="220" height="56" rx="28" fill="#2ea043"/>
-  <text x="238" y="477" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle">MIT Licensed</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="Astro SEO Toolkit — llms.txt, llms-full.txt, JSON-LD, IndexNow, sitemap.xml, robots.txt">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1120"/>
+      <stop offset="1" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2ea043"/>
+      <stop offset="1" stop-color="#3fb950"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <circle cx="1140" cy="110" r="220" fill="#2ea043" opacity="0.10"/>
+  <circle cx="110" cy="610" r="170" fill="#2ea043" opacity="0.06"/>
+  <rect x="64" y="56" width="1152" height="528" rx="28" fill="none" stroke="#2ea043" stroke-width="2" opacity="0.55"/>
+  <rect x="64" y="56" width="96" height="6" rx="3" fill="url(#accent)"/>
+
+  <text x="120" y="196" font-family="DejaVu Sans, Cantarell, sans-serif" font-size="84" font-weight="700" fill="#f0f6fc">Astro SEO Toolkit</text>
+  <text x="120" y="258" font-family="DejaVu Sans, Cantarell, sans-serif" font-size="32" fill="#8b949e">llms.txt · llms-full.txt · JSON-LD · IndexNow</text>
+  <text x="120" y="300" font-family="DejaVu Sans, Cantarell, sans-serif" font-size="32" fill="#8b949e">sitemap.xml · robots.txt · drop-in Astro integration</text>
+
+  <rect x="120" y="336" width="1040" height="128" rx="16" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  <circle cx="152" cy="368" r="7" fill="#f85149"/>
+  <circle cx="176" cy="368" r="7" fill="#d29922"/>
+  <circle cx="200" cy="368" r="7" fill="#3fb950"/>
+  <text x="152" y="422" font-family="Adwaita Mono, DejaVu Sans Mono, monospace" font-size="32" fill="#3fb950">$</text>
+  <text x="186" y="422" font-family="Adwaita Mono, DejaVu Sans Mono, monospace" font-size="32" fill="#f0f6fc">npx astro-seo-generate</text>
+  <text x="152" y="452" font-family="Adwaita Mono, DejaVu Sans Mono, monospace" font-size="23" fill="#3fb950">✔ llms.txt   sitemap.xml   robots.txt   llms-full.txt</text>
+
+  <rect x="120" y="492" width="332" height="60" rx="30" fill="url(#accent)"/>
+  <text x="286" y="531" font-family="DejaVu Sans, Cantarell, sans-serif" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle">zero dependencies</text>
+
+  <text x="1160" y="512" font-family="Adwaita Mono, DejaVu Sans Mono, monospace" font-size="23" fill="#e6edf3" text-anchor="end">github.com/RelayStack/astro-seo-toolkit</text>
+  <text x="1160" y="544" font-family="DejaVu Sans, Cantarell, sans-serif" font-size="23" fill="#8b949e" text-anchor="end">MIT · Node 18+ · agent skill included</text>
 </svg>
