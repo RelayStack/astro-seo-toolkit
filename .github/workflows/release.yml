@@ -1,0 +1,52 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # npm provenance (OIDC)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Tag must match package.json
+        run: |
+          PKG=$(node -p "require('./package.json').version")
+          TAG="${GITHUB_REF_NAME#v}"
+          if [ "$PKG" != "$TAG" ]; then
+            echo "::error::tag v$TAG does not match package.json $PKG"
+            exit 1
+          fi
+
+      - run: npm test
+      - run: npm run check:skill
+
+      # Keeps re-runs and back-filled tags from failing on a version that is
+      # already on the registry, which is not an error condition.
+      - name: Is this version already published?
+        id: check
+        run: |
+          if npm view "astro-seo-toolkit@${GITHUB_REF_NAME#v}" version >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "astro-seo-toolkit@${GITHUB_REF_NAME#v} is already on npm — skipping publish."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to npm
+        if: steps.check.outputs.exists == 'false'
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Alternative to the NPM_TOKEN secret: configure a trusted publisher for
+      # this repo + workflow on npmjs.com, then drop the env block above.
+      # OIDC publishing needs no long-lived token and always carries provenance.
