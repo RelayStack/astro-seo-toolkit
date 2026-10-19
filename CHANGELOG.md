@@ -2,6 +2,19 @@
 
 All notable changes, newest first. Versions follow semver.
 
+## 0.5.1 — 2026-10-19
+
+Docs and packaging only; no behavioural change.
+
+- README links are absolute. Thirteen were relative, which resolves against
+  npmjs.com on the package page and 404s — so every link in the README was broken
+  on the one surface a package searcher actually lands on. Verified that every
+  target exists.
+- npm keywords widened to the queries people type: `llms-txt-generator`,
+  `sitemap-generator`, `schema-markup`, `local-seo`,
+  `generative-engine-optimization`, `agent-skill`, `zero-dependency`.
+- Verified: 33 tests pass, `npm pack` ships 35 files with no build artefacts.
+
 ## Unreleased
 
 ## 0.5.0 — 2026-10-16

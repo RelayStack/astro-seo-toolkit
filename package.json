@@ -1,7 +1,7 @@
 {
   "name": "astro-seo-toolkit",
-  "version": "0.5.0",
-  "description": "Zero-dependency SEO toolkit for Astro & static sites: llms.txt, JSON-LD, IndexNow, sitemap.xml, robots.txt — plus a drop-in Astro integration and an installable agent skill.",
+  "version": "0.5.1",
+  "description": "Zero-dependency SEO toolkit for Astro & static sites: llms.txt, JSON-LD, IndexNow, sitemap.xml, robots.txt \u2014 plus a drop-in Astro integration and an installable agent skill.",
   "type": "module",
   "license": "MIT",
   "author": "RelayStack",
@@ -30,7 +30,15 @@
     "structured-data",
     "geo",
     "ai-search",
-    "static-site"
+    "static-site",
+    "llms-txt-generator",
+    "sitemap-generator",
+    "schema-markup",
+    "local-seo",
+    "generative-engine-optimization",
+    "agent-skill",
+    "zero-dependency",
+    "static-site-seo"
   ],
   "homepage": "https://github.com/RelayStack/astro-seo-toolkit#readme",
   "bugs": {

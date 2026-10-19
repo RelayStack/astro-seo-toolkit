@@ -4,10 +4,10 @@
 
 [![npm](https://img.shields.io/npm/v/astro-seo-toolkit.svg)](https://www.npmjs.com/package/astro-seo-toolkit)
 [![downloads](https://img.shields.io/npm/dm/astro-seo-toolkit.svg)](https://www.npmjs.com/package/astro-seo-toolkit)
-[![tests](https://img.shields.io/badge/tests-33%2F33-brightgreen.svg)](seo-toolkit/test.mjs)
+[![tests](https://img.shields.io/badge/tests-33%2F33-brightgreen.svg)](https://github.com/RelayStack/astro-seo-toolkit/blob/main/seo-toolkit/test.mjs)
 [![CI](https://github.com/RelayStack/astro-seo-toolkit/actions/workflows/test.yml/badge.svg)](https://github.com/RelayStack/astro-seo-toolkit/actions)
-[![node](https://img.shields.io/badge/node-18%2B-brightgreen.svg)](package.json)
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![node](https://img.shields.io/badge/node-18%2B-brightgreen.svg)](https://github.com/RelayStack/astro-seo-toolkit/blob/main/package.json)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/RelayStack/astro-seo-toolkit/blob/main/LICENSE)
 
 One command wires it into your build:
 
@@ -120,17 +120,17 @@ const { files, pages } = await generate({ dirs: ["src/content"], site: "https://
 
 | Tool | File | One-liner |
 | ---- | ---- | --------- |
-| **Integration** | [`seo-toolkit/integration.mjs`](seo-toolkit/integration.mjs) | Astro integration + `astro-seo-toolkit` CLI for all of the below |
-| llms.txt | [`seo-toolkit/llms-txt.mjs`](seo-toolkit/llms-txt.mjs) | Content index for LLMs from your Markdown directory |
-| llms-full.txt | [`seo-toolkit/llms-full.mjs`](seo-toolkit/llms-full.mjs) | Full page bodies inlined for agents that need more than the index |
-| JSON-LD | [`seo-toolkit/json-ld.mjs`](seo-toolkit/json-ld.mjs) | `LocalBusiness`, `Service`, `FAQPage` schema in any locale |
-| IndexNow | [`seo-toolkit/indexnow.mjs`](seo-toolkit/indexnow.mjs) | Instant indexing via Bing, Yandex, Seznam, Naver |
-| Sitemap | [`seo-toolkit/sitemap.mjs`](seo-toolkit/sitemap.mjs) | `sitemap.xml` from the same content directory |
-| robots.txt | [`seo-toolkit/robots.mjs`](seo-toolkit/robots.mjs) | Sitemap reference + optional AI-crawler rules |
-| Validator | [`seo-toolkit/check.mjs`](seo-toolkit/check.mjs) | Verify generated files + sitemap/llms agreement before deploy |
-| GEO checklist | [`notes/geo-checklist.md`](notes/geo-checklist.md) | 2026 AI-search checklist for local business sites |
+| **Integration** | [`seo-toolkit/integration.mjs`](https://github.com/RelayStack/astro-seo-toolkit/blob/main/seo-toolkit/integration.mjs) | Astro integration + `astro-seo-toolkit` CLI for all of the below |
+| llms.txt | [`seo-toolkit/llms-txt.mjs`](https://github.com/RelayStack/astro-seo-toolkit/blob/main/seo-toolkit/llms-txt.mjs) | Content index for LLMs from your Markdown directory |
+| llms-full.txt | [`seo-toolkit/llms-full.mjs`](https://github.com/RelayStack/astro-seo-toolkit/blob/main/seo-toolkit/llms-full.mjs) | Full page bodies inlined for agents that need more than the index |
+| JSON-LD | [`seo-toolkit/json-ld.mjs`](https://github.com/RelayStack/astro-seo-toolkit/blob/main/seo-toolkit/json-ld.mjs) | `LocalBusiness`, `Service`, `FAQPage` schema in any locale |
+| IndexNow | [`seo-toolkit/indexnow.mjs`](https://github.com/RelayStack/astro-seo-toolkit/blob/main/seo-toolkit/indexnow.mjs) | Instant indexing via Bing, Yandex, Seznam, Naver |
+| Sitemap | [`seo-toolkit/sitemap.mjs`](https://github.com/RelayStack/astro-seo-toolkit/blob/main/seo-toolkit/sitemap.mjs) | `sitemap.xml` from the same content directory |
+| robots.txt | [`seo-toolkit/robots.mjs`](https://github.com/RelayStack/astro-seo-toolkit/blob/main/seo-toolkit/robots.mjs) | Sitemap reference + optional AI-crawler rules |
+| Validator | [`seo-toolkit/check.mjs`](https://github.com/RelayStack/astro-seo-toolkit/blob/main/seo-toolkit/check.mjs) | Verify generated files + sitemap/llms agreement before deploy |
+| GEO checklist | [`notes/geo-checklist.md`](https://github.com/RelayStack/astro-seo-toolkit/blob/main/notes/geo-checklist.md) | 2026 AI-search checklist for local business sites |
 
-Full flags and API per tool: [`seo-toolkit/README.md`](seo-toolkit/README.md).
+Full flags and API per tool: [`seo-toolkit/README.md`](https://github.com/RelayStack/astro-seo-toolkit/blob/main/seo-toolkit/README.md).
 
 ## How it compares
 
@@ -180,7 +180,7 @@ Then prompt your agent: `implement astro seo`, `audit this page`, `schema for /p
 
 ## Locales
 
-No locale is assumed. Pass `country` on addresses and `currency` on prices explicitly; currency falls back to `USD` only. One page per service and location, JSON-LD with the matching `addressCountry`, and the [`GEO checklist`](notes/geo-checklist.md) as a repeatable launch routine — in whatever language your customers read.
+No locale is assumed. Pass `country` on addresses and `currency` on prices explicitly; currency falls back to `USD` only. One page per service and location, JSON-LD with the matching `addressCountry`, and the [`GEO checklist`](https://github.com/RelayStack/astro-seo-toolkit/blob/main/notes/geo-checklist.md) as a repeatable launch routine — in whatever language your customers read.
 
 ## Layout
 
@@ -218,7 +218,7 @@ Yes. `npx skills add RelayStack/astro-seo-toolkit --skill astro-seo`, or copy `s
 
 ## Contributing
 
-Questions, ideas, bug reports: use [Discussions](../../discussions). PRs welcome — keep helpers dependency-free and tested.
+Questions, ideas, bug reports: use [Discussions](https://github.com/RelayStack/astro-seo-toolkit/discussions). PRs welcome — keep helpers dependency-free and tested.
 
 ```bash
 npm test          # 33 tests
@@ -231,4 +231,4 @@ If the toolkit saved you time, a ⭐ is the cheapest way to say thanks.
 
 ## License
 
-MIT — see [LICENSE](LICENSE). By [RelayStack](https://github.com/RelayStack).
+MIT — see [LICENSE](https://github.com/RelayStack/astro-seo-toolkit/blob/main/LICENSE). By [RelayStack](https://github.com/RelayStack).

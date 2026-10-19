@@ -6,5 +6,5 @@ authors:
     website: "https://github.com/RelayStack/astro-seo-toolkit"
 repository-code: "https://github.com/RelayStack/astro-seo-toolkit"
 license: MIT
-version: 0.5.0
-date-released: "2026-10-16"
+version: 0.5.1
+date-released: "2026-10-19"
