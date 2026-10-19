@@ -216,6 +216,13 @@ No. Everything runs on Node 18+ with zero runtime dependencies. `astro` is an op
 
 Yes. `npx skills add RelayStack/astro-seo-toolkit --skill astro-seo`, or copy `skills/astro-seo/` into any harness skills dir, or run everything via `npx astro-seo-toolkit` with no install.
 
+## Related repositories
+
+| Project | What it is |
+| --- | --- |
+| [**astro-seo-skill**](https://github.com/RelayStack/astro-seo-skill) | The agent skill on its own — installable with `npx skills add RelayStack/astro-seo-skill`. Same helpers, own home, so agents looking for a skill can find it. |
+| [**local-seo-audit**](https://github.com/RelayStack/local-seo-audit) | Audits what a crawler can actually read from a local business site: business schema, NAP consistency, opening hours, sitemap, robots, `llms.txt`. 21 checks, no dependencies. |
+
 ## Contributing
 
 Questions, ideas, bug reports: use [Discussions](https://github.com/RelayStack/astro-seo-toolkit/discussions). PRs welcome — keep helpers dependency-free and tested.

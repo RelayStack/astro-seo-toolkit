@@ -13,6 +13,7 @@ Docs and packaging only; no behavioural change.
 - npm keywords widened to the queries people type: `llms-txt-generator`,
   `sitemap-generator`, `schema-markup`, `local-seo`,
   `generative-engine-optimization`, `agent-skill`, `zero-dependency`.
+- Linked the two sibling repositories: `astro-seo-skill` and `local-seo-audit`.
 - Verified: 33 tests pass, `npm pack` ships 35 files with no build artefacts.
 
 ## Unreleased
